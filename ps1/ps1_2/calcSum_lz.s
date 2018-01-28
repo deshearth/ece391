@@ -1,3 +1,4 @@
+.text
 .global calcSum_lz
 .type calcSum_lz @function
 .code32
@@ -21,7 +22,9 @@ calcSum_lz:
 	push %edx
 	push %ecx
 	call calcSum_lz
-	addl $8, %esp
+	popl %ecx
+	popl %edx
+
 	 
 	addl %eax, %edi           # sum += calcSum(array, arrayLen-1)
 	addl  (%ecx, %edx, 4), %edi       #/ sum += array[arrayLen - 1]
