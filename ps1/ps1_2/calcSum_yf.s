@@ -12,7 +12,7 @@ calcSum_yf:
 	movl 8(%ebp), %ebx                 	# ebx = array[]
 	movl 12(%ebp), %ecx                	# ecx = arrayLen
 	 
-	xor $edi, %edi                     	# clear edi
+	xor %edi, %edi                     	# clear edi
 	 
 	cmpl $0, %ecx
 	jle  Done
@@ -23,16 +23,17 @@ calcSum_yf:
 
 	movl %ecx, %esi
 	subl $1, %esi                     	# edx = arrayLen -1
-	pushl %esi													# push first arg array, 
-	push %ebx														# push second arg arrayLen-1
+	pushl %esi													# push second arg arrayLen-1
+	pushl %ebx													# push first arg array, 	
 	call calcSum_yf
 	addl $8, %esp 											# pop passed args
+
+	addl %eax, %edi           					# sum += calcSum(array, arrayLen-1)
 
 	popl %edx														# pop caller saved reg
 	popl %ecx
 	popl %eax
 
-	addl %eax, %edi           					# sum += calcSum(array, arrayLen-1)
 	addl  (%ebx, %esi, 4), %edi       	#/ sum += array[arrayLen - 1]
 	 
 	 
