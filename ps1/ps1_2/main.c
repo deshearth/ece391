@@ -6,6 +6,6 @@ int main() {
 	int arrayLength = 4;
 	printf("%d\n", calcSum_lz(array, arrayLength));
 	int arr2[6] = {-1,4,5,3,9,30};
-	int arrayLength_2 = 4;
+	int arrayLength_2 = 6;
 	printf("%d\n", calcSum_lz(arr2, arrayLength_2));
 }
