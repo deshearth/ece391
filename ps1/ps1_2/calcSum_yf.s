@@ -5,7 +5,7 @@ calcSum_yf:
 calcSum_yf:
   pushl %ebp                                                                   
 	movl %esp, %ebp
-	pushl %ebx
+	pushl %ebx		# callee saved reg
 	pushl %esi
 	pushl %edi
 	 
@@ -23,19 +23,19 @@ calcSum_yf:
 	pushl %ecx
 	pushl %edx
 
-	movl %ecx, %edx
-	subl $1, %edx                     #edx = arrayLen -1
-	pushl %edx		# push first arg array, 
+	movl %ecx, %esi
+	subl $1, %esi                     #edx = arrayLen -1
+	pushl %esi		# push first arg array, 
 	push %ebx			# push second arg arrayLen-1
 	call calcSum_yf
-	addl $8, %esp
+	addl $8, %esp # pop passed args
 
-	popl %edx
+	popl %edx			# pop caller saved reg
 	popl %ecx
 	popl %eax
 
 	addl %eax, %edi           # sum += calcSum(array, arrayLen-1)
-	addl  (%ebx, %edx, 4), %edi       #/ sum += array[arrayLen - 1]
+	addl  (%ebx, %esi, 4), %edi       #/ sum += array[arrayLen - 1]
 	 
 	 
 	movl %edi, %eax
